@@ -1,0 +1,85 @@
+{%extends "main/base.html"%}
+{% block title%}{%endblock title%}
+{%block style%}<style></style>
+{% endblock%}
+{%block header%}{% endblock%}
+{%block banner%}{% endblock%}
+{% block main-content%}
+
+<h1>Your Orders :</h1>
+{% if messages %}
+{% for message in messages %}
+<h3><div class="alert alert-{{ message.tags }}">{{ message }}</div></h3>
+{% endfor %}
+{% endif %}
+{% for order in orders %} 
+{% comment %} {%for item in order%} {% endcomment %}
+<table class="order_table">
+  <header>
+  <h1>Your Order : {{order.0.order_id}}</h1>
+<br><br><br><br>
+  <div class="shopping-cart">
+    <div class="column-labels">
+      <tr>
+      <td> <label class="product-image">Image</label></td> 
+      <td> <label class="product-details">Product</label></td> 
+      <td> <label class="product-price">Price</label></td> 
+      <td> <label class="product-quantity">Quantity</label></td> 
+      <td> <label class="product-line-price">Total</label></td>
+      <tr>
+    </div>
+  </div>
+</header>
+
+{%for j in order.1 %}
+<tr>    
+  <td><div class="product-image"style='width:230px; height:224px;'>
+    <img style='width:224px; height:224px;' src={{j.products.product_image.url}}>
+  </div></td>
+  <td><div style='width:224px; height:224px;'class="product-price">{{j.products.product_name}}</div></td>
+  <td><div style='width:224px; height:224px;'class="product-price">{{j.products.description}}</div></td>
+
+  <td><div style='width:224px; height:224px;'class="product-price">{{j.products.price}}</div></td>
+
+  
+  <td><div class="product-quantity">
+      <p style='width:224px; height:224px;' type="text" min="1" name='quantity' style='width:50px; text-align:center;'>{{j.quantity}}</p>
+  </div></td>
+
+  <td><div class="product-quantity">
+    <p type="text" style='width:224px; height:224px;' min="1" name='quantity' style='width:50px; text-align:center;'>{{j.total_price}}</p>
+</div></td>
+
+ 
+
+</tr>
+
+{%endfor%}
+{% comment %} {%endfor%} {% endcomment %}
+</table>
+<table>
+  <div class="totals-item totals-item-total">
+    <tr><td><label>Grand Total</label></td><td>
+      <input hidden name='grandtotal' value={{order.2}}></input>
+    <div class="totals-value" id="cart-total">{{order.2}}</div></td></tr>
+  </div>
+</div>
+</table>
+<br>
+{%endfor%}
+
+
+
+
+{% comment %} <script>
+    const imageUrl = document.getElementById('product-image').getAttribute('src');
+    const newImageUrl = imageUrl.replace("/order", "");
+    document.getElementById('product-image').setAttribute('src', newImageUrl);
+</script> {% endcomment %}
+{% endblock%}
+{%block footer%}{% endblock%}
+{%block contact%}{% endblock%}
+{% block customer%}{% endblock%}
+{% block about%}{% endblock%}
+{%block last%}{% endblock%}
+{%block copyright%}{% endblock%}

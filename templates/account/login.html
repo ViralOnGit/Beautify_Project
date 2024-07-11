@@ -1,0 +1,61 @@
+{%extends "main/base.html"%}
+{% block title%}Login{%endblock title%}
+{%block header%}{% endblock%}
+{%block banner%}{% endblock%}
+{% block main-content%}
+
+<div class="banner_section layout_padding">
+   <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+      <div class="carousel-inner">
+         <div class="carousel-item active"> 
+            <div class="container">
+               <div class="row">
+                  <div class="col-sm-6">
+                     <div class="login-box">
+
+                        <div class="login-header">
+                        <h2>Login</h2>
+                        </div>
+
+                        <div class="login-form">
+                           <form method="POST" action='/acc/login-user/'>
+                              {% csrf_token%}
+                           <div class="user-box">
+                              <label>Username</label>
+                              <input type="text" name='username' id='username' required="">
+                              
+                           </div>
+                           <div class="user-box">
+                              <label>Password</label>
+                              <input type="password" id='password' name='password' required="">
+                           </div> 
+                        </div>
+
+                        <div class="login-submit">
+                           {% if messages %}
+                              {% for message in messages %}
+                              <p ><div class="alert alert-{{ message.tags }}" style='color:red;'>{{ message }}</div></p>
+                              {% endfor %}
+                              {% endif %}
+                           
+                           <button>LOGIN</button>
+                           <p class="text-center">If you already don't have an account, <a href="/acc/register/">register</a> instead.</p>
+                          
+                           </form>
+                        </div>
+                     </div>
+                  </div>
+                    
+                  <div class="col-sm-6">
+                     <div class="banner_img"><img src="/static/images/banner-img.png"></div>
+                     </div>
+               </div>
+            </div>
+         </div>
+{% endblock%}
+{%block footer%}{% endblock%}
+{%block contact%}{% endblock%}
+{% block customer%}{% endblock%}
+{% block about%}{% endblock%}
+{%block last%}{% endblock%}
+{%block copyright%}{% endblock%}

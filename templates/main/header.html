@@ -1,0 +1,90 @@
+{% load custom_tags %}
+{% load custom_tags2 %}
+<div class="header_section">
+    <div class="container-fluid">
+        <div class="header-1">
+          <div id="mySidenav" class="sidenav">
+            <a href="" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="{% url 'index' %}">Home</a>
+            <a href="{% url 'viewProduct' %}">Products</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'contact' %}">Contact</a>
+          </div>
+          <span class="toggle_icon" onclick="openNav()"><img src="/static/images/toggle-icon.png"></span>
+          <a class="logo" href="{% url 'index' %}"><img src="/static/images/logo.png"></a>
+        </div>
+        <div class="header-2">
+            <div class="form-inline login_text">
+              <ul class="nav-list">
+                <li class="dropdown dropbtn">
+                  {% categories as choices %}
+                  <a >Category</a>
+                  <div class="dropdown-content">
+                    {% for value, label in choices %}
+                    <a href="{% url 'category' value %}">{{value}}</a>
+                    {% endfor %}
+                 </div>
+                </li>
+        
+                <li class="search-li">
+                  <form class="search-wrapper" id="search-form">
+                    <input type="text" class="search-input" placeholder="Search.." name="searchText" id="searchText">
+                    <button class="search-button" type="submit" id="search-submit">
+                        <i class="fa fa-search" aria-hidden="true" alt="Search"></i>
+                    </button>
+                </form>                  
+                </li>
+                
+              </ul>
+            </div>
+          </form>
+        </div>
+        
+        <div class="header-3">
+          {% if request.user.is_authenticated %}    
+            <li>Hi {{ request.user }}!</li>
+            <div class="dropbtn-2">
+            <li>
+              <a href="{% url 'cart' %}" class="cart-link">
+                <img class="cart-image" src="/static/images/bag-icon.png">
+                <span class="cart-count"> {% cart_count %}</span>
+              </a>
+            </li>
+          </div>
+          <div class="dropbtn-2">
+            <li class="link-item" id='a'>
+              <a  href="{% url 'wishlist' %}" style="color:black;"><i class="fas fa-heart"></i></a>
+            </li> 
+          </div>
+          <div class="dropbtn-2">
+            <li>
+              <div class="dropdown">
+                <button class="dropbtn"><img src="/static/images/user-icon.png"></button>
+                <div class="dropdown-content">
+                  <a href="{% url 'myprofile' request.user %}" style="color:black;">Profile</a>
+                  <a href="{% url 'order' %}" style="color:black;">Orders</a>
+                  <a href="{% url 'logout' %}" style="color:black;">Logout</a>
+                  <!-- Make a file upload and folder creation upto 4 level heirarchy -->
+                  <a href="{% url 'folder' %}" style="color:black;">Folders</a>
+                  {% is_seller as seller%}
+                  {% if seller %}
+                  <a href="{% url 'adminpage' %}" style="color:black;">Seller Dashboard</a>
+                  {% endif %}
+                </div>
+              </div>
+            </li>
+          </div>
+          {% else %}
+            <li> 
+              <div class="login_text">
+                <li class="link-item" id='a'><a href="/acc/login/" style="color:black;">Log In</a></li>
+                <li class="link-item" id='a'><a href="/acc/register/" style="color:black;">Sign Up</a></li>
+              </div>
+            </li>
+            
+          {% endif %}
+        </div>
+    </div>
+  </div>
+
+
